@@ -3,8 +3,8 @@ package util
 import (
 	"bufio"
 	"encoding/json"
+	"fginostcal/model"
 	"os"
-	"test/model"
 )
 
 var _cfg *model.AppInfo = nil

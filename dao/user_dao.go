@@ -1,9 +1,9 @@
 package dao
 
 import (
+	"fginostcal/engine"
+	"fginostcal/model"
 	"fmt"
-	"test/engine"
-	"test/model"
 )
 
 type UserDao struct {

@@ -1,4 +1,4 @@
-module test
+module fginostcal
 
 go 1.20
 

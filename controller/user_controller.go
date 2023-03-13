@@ -1,9 +1,9 @@
 package controller
 
 import (
+	"fginostcal/common"
+	"fginostcal/service"
 	"github.com/gin-gonic/gin"
-	"test/common"
-	"test/service"
 )
 
 type UserController struct {

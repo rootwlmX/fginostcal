@@ -1,8 +1,8 @@
 package router
 
 import (
+	"fginostcal/controller"
 	"github.com/gin-gonic/gin"
-	"test/controller"
 )
 
 func InitRouter(engine *gin.Engine) {

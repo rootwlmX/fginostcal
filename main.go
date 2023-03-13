@@ -1,13 +1,13 @@
 package main
 
 import (
+	"fginostcal/engine"
+	"fginostcal/router"
+	"fginostcal/util"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
-	"test/engine"
-	"test/router"
-	"test/util"
 )
 
 func main() {

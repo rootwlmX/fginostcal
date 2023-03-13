@@ -1,10 +1,10 @@
 package service
 
 import (
-	"test/dao"
-	"test/engine"
-	"test/model"
-	"test/util"
+	"fginostcal/dao"
+	"fginostcal/engine"
+	"fginostcal/model"
+	"fginostcal/util"
 	"time"
 )
 
