@@ -6,11 +6,11 @@ import (
 	"test/model"
 )
 
-type GenshinDao struct {
+type UserDao struct {
 	DbEngine *engine.Orm
 }
 
-func (gd *GenshinDao) InsertGenshin(genshin model.Genshin) (int64, error) {
+func (gd *UserDao) Add(genshin model.User) (int64, error) {
 	result, err := gd.DbEngine.InsertOne(genshin)
 	fmt.Println(result, err)
 	if err != nil {
