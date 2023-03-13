@@ -1,9 +1,9 @@
 package engine
 
 import (
+	"fginostcal/model"
 	"fmt"
 	"github.com/go-xorm/xorm"
-	"test/model"
 )
 
 var _dbEngine *Orm
@@ -28,7 +28,7 @@ func NewOrmEngine(appInfo *model.AppInfo) (*xorm.Engine, error) {
 
 	// 创建表
 	// Sync2 synchronize structs to database tables
-	err = engine.Sync2(new(model.Genshin))
+	err = engine.Sync2(new(model.User))
 	if err != nil {
 		return nil, err
 	}
