@@ -1,0 +1,10 @@
+{
+  "app_name": "test",
+  "app_mode": "debug",
+  "driver_name": "mysql",
+  "username": "root",
+  "password": "genpo123",
+  "host": "127.0.0.1",
+  "port": "3306",
+  "database": "qqrobot"
+}
