@@ -20,6 +20,8 @@ func NewOrmEngine(appInfo *model.AppInfo) (*xorm.Engine, error) {
 	url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", appInfo.UserName, appInfo.Password, appInfo.Host, appInfo.Port, appInfo.DataBase)
 	engine, err := xorm.NewEngine(appInfo.DriverName, url)
 
+	engine.ShowSQL(true)
+
 	fmt.Println(appInfo)
 
 	if err != nil {
@@ -28,7 +30,7 @@ func NewOrmEngine(appInfo *model.AppInfo) (*xorm.Engine, error) {
 
 	// 创建表
 	// Sync2 synchronize structs to database tables
-	err = engine.Sync2(new(model.User))
+	err = engine.Sync2(new(model.User), new(model.Servant))
 	if err != nil {
 		return nil, err
 	}
