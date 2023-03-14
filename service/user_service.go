@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/md5"
+	"errors"
 	"fginostcal/dao"
 	"fginostcal/engine"
 	"fginostcal/model"
@@ -20,4 +21,17 @@ func (us *UserService) Register(params model.UserParams) (int64, error) {
 
 	userDao := dao.UserDao{DbEngine: engine.GetOrmEngine()}
 	return userDao.Add(model.User(params))
+}
+
+func (us *UserService) Login(params model.UserParams) (string, error) {
+	userDao := dao.UserDao{DbEngine: engine.GetOrmEngine()}
+	status, user := userDao.QueryByUserAccount(params.Account)
+	if !status {
+		return "", errors.New("account doesn't exist")
+	}
+	if user.Password != fmt.Sprintf("%x", md5.Sum([]byte(params.Password))) {
+		return "", errors.New("password doesn't match")
+	} else {
+		return "login success", nil
+	}
 }

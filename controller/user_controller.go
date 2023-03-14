@@ -13,7 +13,7 @@ type UserController struct {
 func (uc *UserController) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/api/v1/user")
 	group.POST("register", uc.Register)
-	group.POST("test", uc.Test)
+	group.POST("login", uc.Login)
 }
 
 func (uc *UserController) Register(c *gin.Context) {
@@ -22,10 +22,22 @@ func (uc *UserController) Register(c *gin.Context) {
 	err := c.ShouldBind(&user)
 	row, err := userService.Register(user)
 	if err == nil && row > 0 {
-		common.Success(c, 1, "注册成功")
+		common.Success(c, 1, "register success")
 	}
 }
 
-func (uc *UserController) Test(c *gin.Context) {
-	common.Success(c, 1, "测试返回")
+func (uc *UserController) Login(c *gin.Context) {
+	user := model.UserParams{}
+	err := c.ShouldBind(&user)
+	if err != nil {
+		common.Failed(c, err.Error())
+		return
+	}
+	userService := service.UserService{}
+	msg, err := userService.Login(user)
+	if err != nil {
+		common.Failed(c, err.Error())
+		return
+	}
+	common.Success(c, 1, msg)
 }
