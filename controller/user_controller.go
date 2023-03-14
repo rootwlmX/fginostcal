@@ -23,7 +23,9 @@ func (uc *UserController) Register(c *gin.Context) {
 	row, err := userService.Register(user)
 	if err == nil && row > 0 {
 		common.Success(c, 1, "register success")
+		return
 	}
+	common.Failed(c, err.Error())
 }
 
 func (uc *UserController) Login(c *gin.Context) {

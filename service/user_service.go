@@ -15,6 +15,10 @@ type UserService struct {
 }
 
 func (us *UserService) Register(params model.UserParams) (int64, error) {
+	exist, _ := checkAccountExist(params.Account)
+	if exist {
+		return 0, errors.New("account already exist")
+	}
 	params.Id = util.GenID()
 	params.Password = fmt.Sprintf("%x", md5.Sum([]byte(params.Password)))
 	params.CreateTime = time.Now()
@@ -34,4 +38,9 @@ func (us *UserService) Login(params model.UserParams) (string, error) {
 	} else {
 		return "login success", nil
 	}
+}
+
+func checkAccountExist(account string) (bool, *model.User) {
+	userDao := dao.UserDao{DbEngine: engine.GetOrmEngine()}
+	return userDao.QueryByUserAccount(account)
 }
