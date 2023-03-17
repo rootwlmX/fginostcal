@@ -3,6 +3,7 @@ package spar
 import (
 	"fginostcal/common"
 	"fginostcal/model"
+	"fginostcal/service"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -22,5 +23,7 @@ func (h *Handler) Calculate(c *gin.Context) {
 		common.Failed(c, err.Error())
 		return
 	}
-	common.Success(c, params, "success")
+	sparService := service.SparService{}
+	totalSpar := sparService.Calculate(params)
+	common.Success(c, totalSpar, "success")
 }
