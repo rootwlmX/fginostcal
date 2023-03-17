@@ -24,6 +24,6 @@ func (h *Handler) Calculate(c *gin.Context) {
 		return
 	}
 	sparService := service.SparService{}
-	totalSpar := sparService.Calculate(params)
-	common.Success(c, totalSpar, "success")
+	total := sparService.Calculate(params)
+	common.Success(c, total, "success")
 }
