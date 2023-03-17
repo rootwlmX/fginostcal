@@ -30,7 +30,7 @@ func NewOrmEngine(appInfo *model.AppInfo) (*xorm.Engine, error) {
 
 	// 创建表
 	// Sync2 synchronize structs to database tables
-	err = engine.Sync2(new(model.User), new(model.Servant))
+	err = engine.Sync2(new(model.User), new(model.Servant), new(model.Event))
 	if err != nil {
 		return nil, err
 	}

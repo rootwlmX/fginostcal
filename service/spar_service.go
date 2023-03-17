@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fginostcal/dao"
+	"fginostcal/engine"
 	"fginostcal/model"
 	"time"
 )
@@ -9,21 +11,24 @@ type SparService struct {
 }
 
 func (ss *SparService) Calculate(params model.SparParams) model.SparResponse {
-
-	days := getDiffDays(params.EndTime, params.StartTime)
+	startTime := params.StartTime
+	endTime := params.EndTime
+	days := getDiffDays(endTime, startTime)
 
 	sparResponse := model.SparResponse{
-		Spars:  calculateTotalSpars(days),
-		Coupon: calculateTotalCoupon(days),
+		Spars:  calculateTotalSpars(startTime, endTime, days),
+		Coupon: calculateTotalCoupons(startTime, endTime, days),
 	}
 
 	return sparResponse
 }
 
-func calculateTotalSpars(days int) int {
+func calculateTotalSpars(start, end time.Time, days int) int {
+
 	totalSpar := fiftyDaysSignInSpars(days)
 	totalSpar += weeklyTaskSpars(days)
 	totalSpar += weeklySignInSpars(days)
+	totalSpar += getEventSpars(start, end)
 
 	return totalSpar
 }
@@ -50,7 +55,18 @@ func weeklySignInSpars(days int) int {
 	return spars
 }
 
-func calculateTotalCoupon(days int) int {
+func getEventSpars(start, end time.Time) int {
+	spars := 0
+	eventDao := dao.EventDao{DbEngine: engine.GetOrmEngine()}
+	events := eventDao.GetEventsInDayRange(start, end)
+	for _, event := range *events {
+		spars += event.Spar
+	}
+
+	return spars
+}
+
+func calculateTotalCoupons(start, end time.Time, days int) int {
 	totalCoupon := weeklySignInCoupons(days)
 	return totalCoupon
 }
