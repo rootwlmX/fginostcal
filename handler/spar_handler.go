@@ -1,4 +1,4 @@
-package spar
+package handler
 
 import (
 	"fginostcal/common"
@@ -8,15 +8,15 @@ import (
 	"time"
 )
 
-type Handler struct {
+type SparHandler struct {
 }
 
-func (h *Handler) RegisterRouter(engine *gin.Engine) {
+func (h *SparHandler) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/api/v1/spar")
 	group.POST("calculate", h.Calculate)
 }
 
-func (h *Handler) Calculate(c *gin.Context) {
+func (h *SparHandler) Calculate(c *gin.Context) {
 	params := model.SparParams{StartTime: time.Now()}
 	err := c.ShouldBind(&params)
 	if err != nil {

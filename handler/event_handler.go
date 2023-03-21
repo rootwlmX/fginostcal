@@ -1,4 +1,4 @@
-package servant
+package handler
 
 import (
 	"fginostcal/common"
@@ -7,19 +7,19 @@ import (
 	"strconv"
 )
 
-type Handler struct {
+type EventHandler struct {
 }
 
-func (h *Handler) RegisterRouter(engine *gin.Engine) {
-	group := engine.Group("/api/v1/servant")
+func (h *EventHandler) RegisterRouter(engine *gin.Engine) {
+	group := engine.Group("/api/v1/event")
 	group.GET("list", h.List)
 }
 
-func (h *Handler) List(c *gin.Context) {
-	servantService := service.ServantService{}
+func (h *EventHandler) List(c *gin.Context) {
+	eventService := service.EventService{}
 	size, _ := strconv.Atoi(c.Query("size"))
 	page, _ := strconv.Atoi(c.Query("page"))
-	list := servantService.List(page, size)
+	list := eventService.List(page, size)
 	if list == nil {
 		common.Failed(c, "failed")
 		return

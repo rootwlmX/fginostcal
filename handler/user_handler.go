@@ -1,4 +1,4 @@
-package user
+package handler
 
 import (
 	"fginostcal/common"
@@ -7,16 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {
+type UserHandler struct {
 }
 
-func (h *Handler) RegisterRouter(engine *gin.Engine) {
+func (h *UserHandler) RegisterRouter(engine *gin.Engine) {
 	group := engine.Group("/api/v1/user")
 	group.POST("register", h.Register)
 	group.POST("login", h.Login)
 }
 
-func (h *Handler) Register(c *gin.Context) {
+func (h *UserHandler) Register(c *gin.Context) {
 	userService := service.UserService{}
 	user := model.UserParams{}
 	err := c.ShouldBind(&user)
@@ -28,7 +28,7 @@ func (h *Handler) Register(c *gin.Context) {
 	common.Failed(c, err.Error())
 }
 
-func (h *Handler) Login(c *gin.Context) {
+func (h *UserHandler) Login(c *gin.Context) {
 	user := model.UserParams{}
 	err := c.ShouldBind(&user)
 	if err != nil {

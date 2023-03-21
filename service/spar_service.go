@@ -68,11 +68,23 @@ func getEventSpars(start, end time.Time) int {
 
 func calculateTotalCoupons(start, end time.Time, days int) int {
 	totalCoupon := weeklySignInCoupons(days)
+	totalCoupon += getEventCoupons(start, end)
 	return totalCoupon
 }
 
 func weeklySignInCoupons(days int) int {
 	return days / 7
+}
+
+func getEventCoupons(start, end time.Time) int {
+	coupons := 0
+	eventDao := dao.EventDao{DbEngine: engine.GetOrmEngine()}
+	events := eventDao.GetEventsInDayRange(start, end)
+	for _, event := range *events {
+		coupons += event.Coupon
+	}
+
+	return coupons
 }
 
 func getDiffDays(t1, t2 time.Time) int {
