@@ -59,6 +59,9 @@ func getEventSpars(start, end time.Time) int {
 	spars := 0
 	eventDao := dao.EventDao{DbEngine: engine.GetOrmEngine()}
 	events := eventDao.GetEventsInDayRange(start, end)
+	if events == nil {
+		return spars
+	}
 	for _, event := range *events {
 		spars += event.Spar
 	}
@@ -80,6 +83,9 @@ func getEventCoupons(start, end time.Time) int {
 	coupons := 0
 	eventDao := dao.EventDao{DbEngine: engine.GetOrmEngine()}
 	events := eventDao.GetEventsInDayRange(start, end)
+	if events == nil {
+		return coupons
+	}
 	for _, event := range *events {
 		coupons += event.Coupon
 	}
