@@ -62,6 +62,7 @@ func getEventSpars(start, end time.Time) int {
 	if events == nil {
 		return spars
 	}
+
 	for _, event := range *events {
 		spars += event.Spar
 	}
