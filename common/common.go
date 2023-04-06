@@ -1,9 +1,8 @@
 package common
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func Success(c *gin.Context, data interface{}, message string) {

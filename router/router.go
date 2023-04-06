@@ -1,10 +1,13 @@
 package router
 
 import (
-	"fginostcal/controller"
+	"fginostcal/handler"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(engine *gin.Engine) {
-	new(controller.UserController).RegisterRouter(engine)
+	new(handler.SparHandler).RegisterRouter(engine)
+	new(handler.ServantHandler).RegisterRouter(engine)
+	new(handler.UserHandler).RegisterRouter(engine)
+	new(handler.EventHandler).RegisterRouter(engine)
 }
