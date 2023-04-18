@@ -29,10 +29,6 @@ func main() {
 
 	r := gin.Default()
 	router.InitRouter(r)
-	r.LoadHTMLFiles("html/servants.html")
-	r.GET("/html", func(c *gin.Context) {
-		c.HTML(200, "servants.html", "flysnow_org")
-	})
 
 	err := r.Run()
 	if err != nil {
